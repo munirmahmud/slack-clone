@@ -24,8 +24,6 @@ function Chat() {
             setMessages(snapshot.docs.map(doc => doc.data()));
         })
     }, [channelId]);
-
-    console.log({messages});
     
     return (
         <main className="chat__body">
@@ -53,9 +51,7 @@ function Chat() {
                         <Message key={index} message={message} user={user} timeStamp={timeStamp} userImage={userImage} />
                     )
                 )}
-            </div>
-
-            <h1>This is chat room id is {channelId}</h1>        
+            </div>      
         </main>
     );
 };

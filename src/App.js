@@ -1,25 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Chat from './components/Chat/Chat';
 import Header from './components/Header/Header';
+import Login from './components/Login/Login';
 import Sidebar from './components/Sidebar/Sidebar';
 
 const App = () => {
+    const [user, setUser] = useState(null);
+
     return (
         <>
             <Router>
-                <Header />
-                <div className="app__body">
-                    <Sidebar />
-                    <Switch>
-                        <Route path="/channel/:channelId"> 
-                            <Chat />
-                        </Route>
-                        <Route path="/"> 
-                            <h1>Welcome to our service</h1>
-                        </Route>
-                    </Switch>
-                </div>
+                {!user ? (
+                    <Login />
+                ) : (
+                    <>
+                        <Header />
+                        <div className="app__body">
+                            <Sidebar />
+                            <Switch>
+                                <Route path="/channel/:channelId"> 
+                                    <Chat />
+                                </Route>
+                                <Route path="/"> 
+                                    <h1>Welcome to our service</h1>
+                                </Route>
+                            </Switch>
+                        </div>
+                    </>
+                )}
             </Router>
 
         </>
@@ -27,5 +36,3 @@ const App = () => {
 };
 
 export default App;
-
-// https://youtu.be/Oo4ziTddOxs?t=10663
