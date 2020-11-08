@@ -1,6 +1,7 @@
 // import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import AdjustIcon from '@material-ui/icons/Adjust';
+import AddIcon from '@material-ui/icons/Add';
 import AppsIcon from '@material-ui/icons/Apps';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import CreateIcon from '@material-ui/icons/Create';
 import DraftsIcon from '@material-ui/icons/Drafts';
@@ -8,26 +9,35 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import InboxIcon from '@material-ui/icons/Inbox';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import db from '../../firebase';
 import './Sidebar.elements.css';
 import SidebarOption from './SidebarOptions/SidebarOption';
 
 const Sidebar = () => {
+    const [channels, setChannels] = useState([]);
+
+
+    useEffect(() => {
+        db.collection('channels').onSnapshot(snapshot => {
+            setChannels(snapshot.docs.map(doc => ({
+                id: doc.id,
+                channelName: doc.data().name
+            })));
+        });
+    }, []);
+
+    console.log(channels);
     return (
         <aside className="sidebar">
             <div className="sidebar__header">
                 <div className="sidebar__info">
                     <h2>Gain Solutions</h2>
-                    {/* <h3>
-                        <FiberManualRecordIcon />
-                        Munir
-                    </h3> */}
                 </div>
                 <CreateIcon />
             </div>
 
             <div className="sidebar__body">
-                <SidebarOption Icon={AdjustIcon} title="Threads" />
                 <SidebarOption Icon={InboxIcon} title="Mentions & reactions" />
                 <SidebarOption Icon={DraftsIcon} title="Saved items" />
                 <SidebarOption Icon={BookmarkBorderIcon} title="Channel browser" />
@@ -35,6 +45,22 @@ const Sidebar = () => {
                 <SidebarOption Icon={AppsIcon} title="Apps" />
                 <SidebarOption Icon={FileCopyIcon} title="File browser" />
                 <SidebarOption Icon={ExpandLessIcon} title="Shwo less" />
+                <SidebarOption Icon={AddIcon} title="Add channel" />
+                
+                <div className="channels overflow-hidden">
+                    <h3 className="channel__heading">
+                        <ArrowDropDownIcon className="arrow__dropdown" />
+                        Channels
+                    </h3>
+                    
+                    {channels.length > 0 && channels.map(channel => (
+                        <SidebarOption key={channel.id} title={channel.channelName} />
+                    ))}
+                    <h3 className="add__channel">
+                        <AddIcon className="add__icon" />
+                        Add Channels
+                    </h3>
+                </div>
             </div>
         </aside>
     );
