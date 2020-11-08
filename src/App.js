@@ -6,16 +6,26 @@ import Sidebar from './components/Sidebar/Sidebar';
 
 const App = () => {
     return (
-        <Router>
-            <Header />
-            <div className="app__body">
-                <Sidebar />
-                <Switch>
-                    <Route path="/channel/:channelId" component={Chat} />
-                </Switch>
-            </div>
-        </Router>
-    )
-}
+        <>
+            <Router>
+                <Header />
+                <div className="app__body">
+                    <Sidebar />
+                    <Switch>
+                        <Route path="/channel/:channelId"> 
+                            <Chat />
+                        </Route>
+                        <Route path="/"> 
+                            <h1>Welcome to our service</h1>
+                        </Route>
+                    </Switch>
+                </div>
+            </Router>
 
-export default App
+        </>
+    );
+};
+
+export default App;
+
+// https://youtu.be/Oo4ziTddOxs?t=10663

@@ -17,6 +17,17 @@ import SidebarOption from './SidebarOptions/SidebarOption';
 const Sidebar = () => {
     const [channels, setChannels] = useState([]);
 
+    const addChannelOption = () => {
+        
+    };
+
+    const addChannel = () => {
+        const channelName = prompt('Please enter the channel name');
+
+        if(channelName) {
+            db.collection('channels').add({ name: channelName.toLocaleLowerCase() });
+        }
+    };
 
     useEffect(() => {
         db.collection('channels').onSnapshot(snapshot => {
@@ -27,7 +38,6 @@ const Sidebar = () => {
         });
     }, []);
 
-    console.log(channels);
     return (
         <aside className="sidebar">
             <div className="sidebar__header">
@@ -45,7 +55,7 @@ const Sidebar = () => {
                 <SidebarOption Icon={AppsIcon} title="Apps" />
                 <SidebarOption Icon={FileCopyIcon} title="File browser" />
                 <SidebarOption Icon={ExpandLessIcon} title="Shwo less" />
-                <SidebarOption Icon={AddIcon} title="Add channel" />
+                <SidebarOption Icon={AddIcon} title="Add channel" addChannelOption={addChannelOption} addChannel={addChannel} />
                 
                 <div className="channels overflow-hidden">
                     <h3 className="channel__heading">
@@ -54,9 +64,9 @@ const Sidebar = () => {
                     </h3>
                     
                     {channels.length > 0 && channels.map(channel => (
-                        <SidebarOption key={channel.id} title={channel.channelName} />
+                        <SidebarOption key={channel.id} title={channel.channelName} channelId={channel.id} />
                     ))}
-                    <h3 className="add__channel">
+                    <h3 className="add__channel" onClick={addChannel}>
                         <AddIcon className="add__icon" />
                         Add Channels
                     </h3>
