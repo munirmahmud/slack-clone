@@ -23,7 +23,7 @@ const Header = () => {
                 <HelpOutlineIcon />
             </div>
         </header>
-    )
-}
+    );
+};
 
-export default Header
+export default Header;
