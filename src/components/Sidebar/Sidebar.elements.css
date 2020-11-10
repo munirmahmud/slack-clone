@@ -8,6 +8,13 @@
     position: relative;
 }
 
+.sidebar__inner {
+    position: fixed;
+    max-width: 260px;
+    width: 100%;
+    height: 100%;
+}
+
 .sidebar__header {
     display: flex;
     border-bottom: 1px solid #49274b;

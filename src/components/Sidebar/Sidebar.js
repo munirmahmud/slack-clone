@@ -39,36 +39,38 @@ const Sidebar = () => {
 
     return (
         <aside className="sidebar">
-            <div className="sidebar__header">
-                <div className="sidebar__info">
-                    <h2>Gain Solutions</h2>
+            <div className="sidebar__inner">
+                <div className="sidebar__header">
+                    <div className="sidebar__info">
+                        <h2>Gain Solutions</h2>
+                    </div>
+                    <CreateIcon />
                 </div>
-                <CreateIcon />
-            </div>
 
-            <div className="sidebar__body">
-                <SidebarOption Icon={InboxIcon} title="Mentions & reactions" />
-                <SidebarOption Icon={DraftsIcon} title="Saved items" />
-                <SidebarOption Icon={BookmarkBorderIcon} title="Channel browser" />
-                <SidebarOption Icon={PeopleAltIcon} title="People & user groups" />
-                <SidebarOption Icon={AppsIcon} title="Apps" />
-                <SidebarOption Icon={FileCopyIcon} title="File browser" />
-                <SidebarOption Icon={ExpandLessIcon} title="Shwo less" />
-                <SidebarOption Icon={AddIcon} title="Add channel" addChannelOption={addChannelOption} addChannel={addChannel} />
-                
-                <div className="channels overflow-hidden">
-                    <h3 className="channel__heading">
-                        <ArrowDropDownIcon className="arrow__dropdown" />
-                        Channels
-                    </h3>
+                <div className="sidebar__body">
+                    <SidebarOption Icon={InboxIcon} title="Mentions & reactions" />
+                    <SidebarOption Icon={DraftsIcon} title="Saved items" />
+                    <SidebarOption Icon={BookmarkBorderIcon} title="Channel browser" />
+                    <SidebarOption Icon={PeopleAltIcon} title="People & user groups" />
+                    <SidebarOption Icon={AppsIcon} title="Apps" />
+                    <SidebarOption Icon={FileCopyIcon} title="File browser" />
+                    <SidebarOption Icon={ExpandLessIcon} title="Shwo less" />
+                    <SidebarOption Icon={AddIcon} title="Add channel" addChannelOption={addChannelOption} addChannel={addChannel} />
                     
-                    {channels.length > 0 && channels.map(channel => (
-                        <SidebarOption key={channel.id} title={channel.channelName} channelId={channel.id} />
-                    ))}
-                    <h3 className="add__channel" onClick={addChannel}>
-                        <AddIcon className="add__icon" />
-                        Add Channels
-                    </h3>
+                    <div className="channels overflow-hidden">
+                        <h3 className="channel__heading">
+                            <ArrowDropDownIcon className="arrow__dropdown" />
+                            Channels
+                        </h3>
+                        
+                        {channels.length > 0 && channels.map(channel => (
+                            <SidebarOption key={channel.id} title={channel.channelName} channelId={channel.id} />
+                        ))}
+                        <h3 className="add__channel" onClick={addChannel}>
+                            <AddIcon className="add__icon" />
+                            Add Channels
+                        </h3>
+                    </div>
                 </div>
             </div>
         </aside>

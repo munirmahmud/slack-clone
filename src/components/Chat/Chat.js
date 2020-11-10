@@ -24,31 +24,32 @@ function Chat() {
             setMessages(snapshot.docs.map(doc => ({
                 id: doc.id,
                 message: doc.data().message,
-                userName: doc.data().name,
+                userName: doc.data().user,
                 userImage: doc.data().userImage,
+                timestamp: doc.data().timestamp,
             })));
         })
     }, [channelId]);
-
-    console.log(messages);
     
     return (
         <main className="chat__body">
             <div className="chat__body-header">
-                <div className="chat__headerLeft">
-                    <div className="channel__name">
-                        <strong># {channelDetails?.name}</strong>
-                        <StarBorderOutlinedIcon className="star__icon" />
+                <div className="chat__body-header-inner">
+                    <div className="chat__headerLeft">
+                        <div className="channel__name">
+                            <strong># {channelDetails?.name}</strong>
+                            <StarBorderOutlinedIcon className="star__icon" />
+                        </div>
+                        <div className="channel__topic">
+                            <p>Company-wide announcements and work-based matters</p>
+                        </div>
                     </div>
-                    <div className="channel__topic">
-                        <p>Company-wide announcements and work-based matters</p>
-                    </div>
-                </div>
 
-                <div className="chat__headerRight">
-                    <Avatar className="icon" />
-                    <PersonAddOutlinedIcon className="icon" />
-                    <HelpOutlineOutlinedIcon className="icon" />
+                    <div className="chat__headerRight">
+                        <Avatar className="icon" />
+                        <PersonAddOutlinedIcon className="icon" />
+                        <HelpOutlineOutlinedIcon className="icon" />
+                    </div>
                 </div>
             </div>
 

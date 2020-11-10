@@ -11,7 +11,7 @@ body {
   box-sizing: border-box;
 }
 .app__body {
-  height: 100vh;
+  height: calc(100vh - 61px);
   display: flex;
 }
 

@@ -3,6 +3,12 @@
 }
 
 .chat__body-header {
+    position: fixed;
+    width: 100%;
+    z-index: 99;
+    background: #fff;
+}
+.chat__body-header-inner {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid rgba(29,28,29,.13);
