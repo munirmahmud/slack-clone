@@ -6,7 +6,7 @@ export function useAuth() {
     return useContext(AuthContext);
 }
 
-const AuthProvider = ({children, reducer, initialState}) => {
+const AuthProvider = ({reducer, initialState, children}) => {
     return (
         <AuthContext.Provider value={useReducer(reducer, initialState)}>
             {children}

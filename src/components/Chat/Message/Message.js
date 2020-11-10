@@ -1,18 +1,16 @@
 import React from 'react';
 import './Message.elements.css';
 
-const Message = ({timeStamp, user, message, userImage}) => {
+const Message = ({message}) => {
     return (
         <div className="message">
             <div className="profile__photo">
-                <img src={userImage} alt={user} />
+                <img src={message?.userImage} alt={message?.userName} />
             </div>
             <div className="message__details">
-                {console.log(new Date(timeStamp?.toDate()))}
-                <h3>{user} <span>{new Date(timeStamp?.toDate()).toUTCString()}</span></h3>
-                <p>{message}</p>
+                <h3>{message?.userName} <span>{new Date(message?.timestamp?.toDate()).toUTCString()}</span></h3>
+                <p>{message?.message}</p>
             </div>
-            
         </div>
     );
 };

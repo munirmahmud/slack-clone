@@ -1,17 +1,22 @@
 import { Button } from '@material-ui/core';
 import React, { useState } from 'react';
+import { useAuth } from '../../AuthProvider/AuthProvider';
+import { actionTypes } from '../../AuthProvider/reducer';
 import { auth, provider } from '../../firebase';
 import './Login.elements.css';
 
 const Login = () => {
     const [error, setError] = useState("");
+    const [state, dispatch] = useAuth();
 
-    const signIn = e => {
+    const signIn = () => {
         auth.signInWithPopup(provider)
             .then(result => {
-                console.log(result);
-            })
-            .catch(error => {
+                dispatch({
+                    type: actionTypes.SET_USER,
+                    user: result.user
+                })
+            }).catch(error => {
                 setError(error.message);
             });
     };
@@ -33,7 +38,7 @@ const Login = () => {
 
                 <div className="login__form">
                     <input type="text" placeholder="name@work-email.com" />
-                    <Button onClick={signIn}>Sign In with Email</Button>
+                    <Button onClick={signIn}>Sign In with Google</Button>
                 </div>
             </div>
         </div>

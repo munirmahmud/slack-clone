@@ -20,10 +20,17 @@ function Chat() {
             });
         }
 
-        db.collection('channels').doc(channelId).collection('messages').orderBy('timeStamp', 'asc').onSnapshot(snapshot => {
-            setMessages(snapshot.docs.map(doc => doc.data()));
+        db.collection('channels').doc(channelId).collection('messages').orderBy('timestamp', 'asc').onSnapshot(snapshot => {
+            setMessages(snapshot.docs.map(doc => ({
+                id: doc.id,
+                message: doc.data().message,
+                userName: doc.data().name,
+                userImage: doc.data().userImage,
+            })));
         })
     }, [channelId]);
+
+    console.log(messages);
     
     return (
         <main className="chat__body">
@@ -47,9 +54,7 @@ function Chat() {
 
             <div className="message__body">
                 {messages.length > 0 && (
-                    messages.map(({message, user, timeStamp, userImage}, index) => 
-                        <Message key={index} message={message} user={user} timeStamp={timeStamp} userImage={userImage} />
-                    )
+                    messages.map(message => <Message key={message.id} message={message} />)
                 )}
             </div>      
         </main>
