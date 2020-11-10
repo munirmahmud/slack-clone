@@ -1,11 +1,27 @@
 import { Button } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
+import { auth, provider } from '../../firebase';
 import './Login.elements.css';
 
-const Login = () => {    
+const Login = () => {
+    const [error, setError] = useState("");
+
+    const signIn = e => {
+        auth.signInWithPopup(provider)
+            .then(result => {
+                console.log(result);
+            })
+            .catch(error => {
+                setError(error.message);
+            });
+    };
+    
     return (
         <div className="login">
             <div className="login__container">
+
+                {error && <div className="alert danger">{error}</div>}
+
                 <div className="login__logo">
                     <img src="https://a.slack-edge.com/bv1-8/slack_logo-ebd02d1.svg" alt="Slack"/>
                 </div>
@@ -17,7 +33,7 @@ const Login = () => {
 
                 <div className="login__form">
                     <input type="text" placeholder="name@work-email.com" />
-                    <Button>Sign In with Email</Button>
+                    <Button onClick={signIn}>Sign In with Email</Button>
                 </div>
             </div>
         </div>
